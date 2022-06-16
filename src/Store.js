@@ -1,9 +1,8 @@
-import { configureStore  } from "@reduxjs/toolkit";
+import { legacy_createStore as createStore} from 'redux'
 import rootred from "./components/redux/reducers/main";
+  
 
-­const store = (createStore)(reducer);
-
-const Store =configureStore (
+const Store =createStore (
     rootred
 );
 

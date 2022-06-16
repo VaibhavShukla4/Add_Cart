@@ -1,16 +1,20 @@
 import React, {useState} from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
-import CardData from "./CardData";
+import CardsData from "./CardsData";
 import './style.css';
 import { useDispatch } from "react-redux";
+import { ADD } from "./redux/action/action";
 
 const Cards = () => {
-  const [data, setData] = useState(CardData);
+  const [data, setData] = useState(CardsData);
 
   const dispatch =useDispatch();
+
   const send =(e) =>{
-    console.log(e);
+    // console.log(e);
+
+    dispatch(ADD(e));
   }
 
   return (
@@ -20,8 +24,8 @@ const Cards = () => {
         {data.map((element, id) => {
           return (
             <div className="col-4 ">
-              <Card style={{ width: "22rem",  }} className="mx-5 ml-4 card_style">
-                <Card.Img variant="top" src={element.imgdata} style={{ height: "16rem" }} className="mt-3" />
+              <Card style={{width: "22rem",}} className="mx-5 ml-4 card_style">
+                <Card.Img variant="top" src={element.imgdata} style={{height: "16rem"}} className="mt-3" />
                 <Card.Body>
                   <Card.Title>{element.rname}</Card.Title>
                   <h5>Rs. {element.price} </h5>

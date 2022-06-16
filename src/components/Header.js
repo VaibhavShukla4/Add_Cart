@@ -7,9 +7,10 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 import {useSelector} from "react-redux";
+import Table from "react-bootstrap/Table";
 const Header = () => {
    
-  const getData= useSelector((state) =>state.cartreducer);
+  const getData= useSelector((state) =>state.cartreducer.carts);
   console.log(getData);
 
 
@@ -37,7 +38,7 @@ const Header = () => {
           </Nav>
 
           <Badge
-            badgeContent={4}
+            badgeContent={getData.length}
             color="primary"
             id="basic-button"
             aria-controls={open ? "basic-menu" : undefined}
@@ -60,11 +61,45 @@ const Header = () => {
             "aria-labelledby": "basic-button",
           }}
         >
+
+        {
+          getData.length ?
+          <div className="cart_details" style={{width:"24rem", padding:"10px"}}>
+            <Table>
+               <thead>
+                   <tr>
+                     <th>Photo</th>
+                     <th>Restaurent Name</th>
+                   </tr>
+               </thead>
+               <tbody>
+                {
+                  getData.map((e) =>{
+                    return(
+                      <div>
+                        <tr>
+                          <td>
+                            <img src={e.imgdata} style={{width:"5rem",height:"5rem"}} alt=""/>
+                          </td>
+                          <td>
+                            <p>{e.rname}</p>
+                            <p>Price :₹ {e.price}</p>
+                            <p>Quantity :{e.qnty}</p>
+                          </td>
+                        </tr>
+                      </div>
+                    )
+                  })
+                }
+               </tbody>
+            </Table>
+          </div>:
          <div className="cart_details justify-content-center d-flex align-item-center" style={{width:"24rem", padding:10,position:"relative"}} > 
          <i className="fas fa-close smallclose" style={{position:"absolute", top:2,right:20,fontSize:23,cursor:"pointer"}} onClick={handleClose} ></i>
            <h5><p>Your Cart Is Empty</p></h5> 
            <img src="./Cart.gif" alt="" className="cart_img" style={{width:"10rem",padding:10}} />                                                   
          </div>
+        }
         </Menu>
       </Navbar>
     </div>
